@@ -33,11 +33,16 @@ A simple Streamlit app that helps DevOps engineers analyze production logs **wit
 
 ### 1. Install Ollama
 
-```bash
-# macOS/Linux
-curl -fsSL https://ollama.com/install.sh | sh
+**Download and install from:** https://ollama.com/
 
-# Or download from https://ollama.com
+Available for macOS, Linux, and Windows. Just download the installer for your OS and run it.
+
+**Verify installation:**
+```bash
+# Check if Ollama is installed
+ollama --version
+
+# You should see something like: ollama version 0.x.x
 ```
 
 ### 2. Pull the AI Model
@@ -46,11 +51,33 @@ curl -fsSL https://ollama.com/install.sh | sh
 ollama pull llama3.2
 ```
 
-### 3. Install Python Dependencies
+**Confirm the model is ready:**
+```bash
+# List installed models
+ollama list
+
+# You should see llama3.2 in the list
+```
+
+### 3. Setup Python Environment
 
 ```bash
+# Create virtual environment (keeps dependencies isolated)
+python3 -m venv venv
+
+# Activate it
+source venv/bin/activate  # macOS/Linux
+# OR
+venv\Scripts\activate  # Windows
+
+# Install dependencies from requirements.txt
 pip install -r requirements.txt
 ```
+
+**Why virtual environment?**
+- Keeps project dependencies isolated
+- Prevents version conflicts with other projects
+- Easy to recreate on different machines
 
 ---
 
@@ -62,18 +89,28 @@ pip install -r requirements.txt
 ollama serve
 ```
 
-### 2. Run the App
+### 2. Verify Ollama is Running
+
+```bash
+# Check if Ollama server is running
+ollama ps
+
+# If it shows an empty list or models, you're good!
+```
+
+### 3. Run the App
 
 ```bash
 streamlit run app.py
 ```
 
-### 3. Analyze Logs
+### 4. Analyze Logs
 
 1. Open browser to `http://localhost:8501`
 2. Paste your error log or stack trace
-3. Click "Analyze"
-4. Get instant insights!
+3. Select analysis type (Quick/Detailed/Solutions/All)
+4. Click "Analyze"
+5. Get instant insights!
 
 ---
 
@@ -172,24 +209,25 @@ The command '/bin/sh -c npm install' returned a non-zero code: 1
    - Runs completely offline
 
 3. **Test Privacy Yourself**
-   ```bash
-   # Disconnect from internet
-   sudo ifconfig en0 down  # macOS
-   sudo ip link set eth0 down  # Linux
 
-   # App still works!
-   streamlit run app.py
-   ```
+   **Simple 3-step test:**
+   1. Start the app: `streamlit run app.py`
+   2. **Turn off your WiFi** or **unplug your ethernet cable**
+   3. Paste a log and click "Analyze"
+
+   **It still works!** 🎉
+
+   Try opening ChatGPT with WiFi off - it won't work. But this analyzer keeps running because everything is **100% local**.
 
 ---
 
 ## 📝 Requirements
 
-- **OS**: macOS, Linux, or Windows (WSL)
+- **OS**: macOS, Linux, or Windows
 - **Python**: 3.9 or higher
 - **RAM**: 8GB minimum (16GB recommended)
 - **Disk**: 5GB for model storage
-- **Internet**: Only for initial setup
+- **Internet**: Only for initial setup (download Ollama & model)
 
 ---
 
@@ -207,6 +245,7 @@ Perfect for:
 
 ## 📚 Learn More
 
+- **[Medium Blog Post](https://medium.com/@nihalka68/building-a-privacy-first-devops-log-analyzer-with-ollama-streamlit-a-local-ai-alternative-to-4b8df6ef238a)** - Complete tutorial
 - [Ollama Documentation](https://ollama.com/docs)
 - [Streamlit Docs](https://docs.streamlit.io)
 - [llama3.2 Model Card](https://ollama.com/library/llama3.2)
@@ -266,7 +305,14 @@ MIT License - Feel free to use, modify, and share!
 ## 🎓 Blog Post
 
 Check out the Medium article explaining how this was built:
-*[Coming soon...]*
+
+**[Building a Privacy-First DevOps Log Analyzer with Ollama & Streamlit: A Local AI Alternative to ChatGPT](https://medium.com/@nihalka68/building-a-privacy-first-devops-log-analyzer-with-ollama-streamlit-a-local-ai-alternative-to-4b8df6ef238a)**
+
+A 3-minute guide covering:
+- Why local AI matters for DevOps
+- How Ollama provides privacy-first analysis
+- Building UIs with Streamlit (no JavaScript!)
+- Complete code walkthrough
 
 ---
 
